@@ -3,20 +3,20 @@ title: "Analyse Badges in StackOverflow"
 author: "Peter Baumgartner"
 date: "`r Sys.Date()`"
 output:
+  pdf_document:
+    pandoc_args: --number-offset=0,0
+    toc: yes
+    toc_depth: '4'
+    latex_engine: xelatex
+  word_document:
+    toc: yes
+    toc_depth: '4'
   html_notebook:
     fig_caption: yes
     number_sections: yes
     pandoc_args: --number-offset=0,0
     toc: yes
     toc_depth: 4
-  word_document:
-    toc: yes
-    toc_depth: '4'
-  pdf_document:
-    pandoc_args: --number-offset=0,0
-    toc: yes
-    toc_depth: '4'
-    latex_engine: xelatex
   github_document:
     toc: yes
     toc_depth: 4
@@ -91,6 +91,11 @@ saveRDS(all_badges, file = "badges.rds")
 
 ```{r load-badges}
 library(stackr)
+library(plyr)
 badges <- readRDS("badges.rds")
+badges_min <- badges[, c(7,4,2,3,6)]
+badges_min <- rename(badges_min, c("award_count" = "n", "badge_id" = "id"))
+head(badges_min, n = 100L)
 ```
+
 
