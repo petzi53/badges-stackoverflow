@@ -87,6 +87,7 @@ Refiner,4369,1767,silver,"Edit and answer 50 questions (both actions within 12 h
 Illuminator,4370,92,gold,"Edit and answer 500 questions (both actions within 12 hours, answer score &gt; 0)"
 Documentation Beta,6157,294,silver,Contributed 3+ substantive pieces of documentation during the private beta
 Documentation Pioneer,6158,2359,silver,Contributed 3+ substantive pieces of documentation in the first month of documentation
-Not a Robot,6381,642,silver,"Met a Stack Overflow employee at an <a href=""https://stackoverflow.com/badges/get/events"">event where Stack Overflow was an organizer or participant</a> with 50 or more attendees"
+Not a Robot,6381,642,silver,"
+Met a Stack Overflow employee at an event where Stack Overflow was an organizer"
 Census,6644,71179,silver,Completed the annual Stack Overflow survey; your responses are anonymous
 Documentation User,7358,43297,silver,"Earned at least one badge for contributing to <a href=""https://stackoverflow.com/documentation"">Stack Overflow Documentation</a>"

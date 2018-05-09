@@ -2,6 +2,10 @@
 title: "Analyse Badges in StackOverflow"
 author: "Peter Baumgartner"
 date: "`r Sys.Date()`"
+header-includes:
+- \usepackage{pdflscape}
+- \newcommand{\blandscape}{\begin{landscape}}
+- \newcommand{\elandscape}{\end{landscape}}
 output:
   pdf_document:
     pandoc_args: --number-offset=0,0
@@ -78,24 +82,53 @@ devtools::install_github("dgrtwo/stackr", build_vignettes = TRUE)
 browseVignettes("stackr")
 ```
 
-
-```{r get-badges-types, eval=FALSE}
+```{r download-badges, eval=FALSE}
+library(stackr)
 all_badges <- stack_badges(special = "name", pagesize = 100, filter = "!9Z(-x-rJv")
 all_badges <- tbl_df(all_badges)
-glimpse(all_badges)
-```
-
-```{r save-badges, eval=FALSE}
-saveRDS(all_badges, file = "badges.rds")
-```
-
-```{r load-badges}
-library(stackr)
-library(plyr)
-badges <- readRDS("badges.rds")
-badges_min <- badges[, c(7,4,2,3,6)]
-badges_min <- rename(badges_min, c("award_count" = "n", "badge_id" = "id"))
-head(badges_min, n = 100L)
+saveRDS(all_badges, file = "data/badges_raw.rds")
 ```
 
 
+```{r clean-badges, eval=FALSE}
+badges <- readRDS("data/badges_raw.rds")
+# shorten very long text in line 51, colum 6
+badges[51,6] <- "
+Met a Stack Overflow employee at an event where Stack Overflow was an organizer"
+# set factor of rank variable (bronze, silver, gold)
+badges[, 3] <- as_factor(badges$rank)
+badges <- badges[, c(7,4,2,3,6)]
+badges <- rename(badges, n = award_count, id = badge_id)
+saveRDS(badges, file = "data/badges_clean.rds")
+####
+# badges_names <- badges[order(badges$name, decreasing = FALSE),]
+# write_csv(badges_names, file.path("badges_name.csv"))
+# badges_count <- badges[order(badges$n, decreasing = TRUE),]
+# write_csv(badges_count, file.path("badges_count.csv"))
+# badges_id <- badges[order(badges$id, decreasing = FALSE),]
+# write_csv(badges_id, file.path("badges_id.csv"))
+```
+
+```{r add-column-activity-as-factor}
+badges <- readRDS("data/badges_clean.rds")
+activity <-      c(1,5,5,4,3,1,3,5,3,5,
+                   4,4,4,3,4,3,3,4,4,1,
+                   4,4,4,6,6,6,4,4,2,3,
+                   3,4,2,1,3,1,2,2,1,2,
+                   1,2,2,5,1,1,3,4,3,2,
+                   2,1,5,1,4,3,4,1,2,3,
+                   1,4,5,3,3,2,4,2,4,2,
+                   1,2,4,1,4,1,4,4,1,4,
+                   4,4,4,3,4,2,2,1,2,4,
+                   3)
+badges <- cbind(badges, activity)
+badge_labels <- c(
+        "Question",       # 1
+        "Answer",         # 2 
+        "Participation",  # 3 
+        "Moderation",     # 4
+        "Other",          # 5
+        "Documentation"   # 6
+)
+badges$activity <- factor(badges$activity, levels = c(1:6), labels = badge_labels)
+```
