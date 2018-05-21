@@ -1,5 +1,5 @@
 ---
-title: "Analyse Badges in StackOverflow"
+title: "Badges in Education"
 author: "Peter Baumgartner"
 date: "`r Sys.Date()`"
 header-includes:
@@ -7,17 +7,17 @@ header-includes:
 - \newcommand{\blandscape}{\begin{landscape}}
 - \newcommand{\elandscape}{\end{landscape}}
 output:
-  html_notebook:
-    fig_caption: yes
-    number_sections: yes
-    pandoc_args: --number-offset=1,0
-    toc: yes
-    toc_depth: 4
   pdf_document:
-    pandoc_args: --number-offset=1,0
+    pandoc_args: --number-offset=0,0
     toc: yes
     toc_depth: '4'
     latex_engine: xelatex
+  html_notebook:
+    fig_caption: yes
+    number_sections: yes
+    pandoc_args: --number-offset=0,0
+    toc: yes
+    toc_depth: 4
   word_document:
     toc: yes
     toc_depth: '4'
@@ -28,11 +28,11 @@ output:
     fig_caption: yes
     keep_md: yes
     number_sections: yes
-    pandoc_args: --number-offset=1,0
+    pandoc_args: --number-offset=0,0
     toc: yes
     toc_depth: 4
 ---
-```{r label = "global-options", echo=FALSE, highlight=TRUE}
+```{r label = "global-options", echo=FALSE, message=FALSE, highlight=TRUE}
 knitr::opts_chunk$set(
         message = F,
         error = F,
@@ -96,6 +96,8 @@ if (!require("printr"))
 <!-- My personal user number: `r petzi <- 7322615` -->
 
 <!-- `r actions <- c("answers", "badges", "comments", "favorites", "mentioned", "network-activity", "posts", "questions", "reputation", "reputation-history", "suggested-edits", "tags", "top-answer-tags", "top-question-tags", "top-tags", "privileges", "notifications", "moderators", "timeline")` -->
+
+# Badges in Stack Overflow
 
 ## Categorization of Badges
 
@@ -191,8 +193,4 @@ The `user` badges are of utmost importance for my research. Most of these badges
 
 When I can show that people are striving to get `user` badges -- even when they are not linked with reputation points -- than it is evident that badges are some additional (motivational) factors for the community development.
 
-
-## What about Datensätze?
-
-adfdsf
 
